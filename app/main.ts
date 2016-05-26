@@ -23,6 +23,6 @@
  */
 
 import {bootstrap}    from 'angular2/platform/browser';
-import {GoComponent} from './go.component';
+import {MyApp} from './myapp';
 
-bootstrap(GoComponent);
+bootstrap(MyApp);

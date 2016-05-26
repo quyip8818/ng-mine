@@ -26,11 +26,11 @@ import {Component} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 
 @Component({
-    selector: 'ng-go',
-    templateUrl: 'app/go.template.html',
+    selector: 'myapp',
+    templateUrl: 'app/myapp.html',
     directives: [],
     providers: []
 })
-export class GoComponent {
+export class MyApp {
     constructor() {}
 }
