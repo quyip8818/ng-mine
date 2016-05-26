@@ -23,12 +23,12 @@
  */
 
 import {Component} from 'angular2/core';
-import {NgForm} from 'angular2/common';
+import {ConfigComponent} from './config_component/config.component';
 
 @Component({
     selector: 'myapp',
     templateUrl: 'app/myapp.html',
-    directives: [],
+    directives: [ConfigComponent],
     providers: []
 })
 export class MyApp {
