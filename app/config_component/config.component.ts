@@ -25,7 +25,9 @@
 import {Component} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 
-import {DefaultValue} from '../default_value';
+import {DefaultValue} from '../config/default_value';
+import {Service} from "../service/Service";
+import {Events} from "../config/events";
 
 @Component({
     selector: 'config-component',
@@ -43,11 +45,11 @@ export class ConfigComponent {
     config = DefaultValue.getDefaultConfig();
     status = this.STATUS.NEW;
 
-    constructor() {
-    }
+    constructor(private service: Service) {}
 
     onSubmit() {
         this.status = this.STATUS.SETTLED;
+        this.service.publish(Events.INIT_MINE, this.config);
     }
 
     reset() {

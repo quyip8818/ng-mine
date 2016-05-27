@@ -22,18 +22,43 @@
  * SOFTWARE.
  */
 
-import {Component} from 'angular2/core';
+import {Component, OnInit, OnDestroy} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 
-import {DefaultValue} from '../default_value';
+import {DefaultValue} from '../config/default_value';
+import {Service} from "../service/Service";
+import {Events} from "../config/events";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
     selector: 'mine-component',
-    templateUrl: 'app/mine_component/mine.component.html',
+    templateUrl: 'app/mine_component/mine.entry.html',
     directives: [],
     providers: []
 })
-export class MineComponent {
-    constructor() {
+export class MineComponent implements OnInit, OnDestroy {
+
+    config = DefaultValue.getDefaultConfig();
+    serviceSubscription: Subscription;
+
+    constructor(private service: Service) {}
+
+    ngOnInit():void {
+        this.serviceSubscription = this.service.coreService.subscribe(
+          data => {
+              this.processData(data);
+          });
+    }
+
+    ngOnDestroy():void {
+        this.serviceSubscription.unsubscribe();
+    }
+
+    processData(data: {method: string, body: any}) {
+        switch (data.method) {
+            case Events.INIT_MINE:
+                this.config = data.body;
+                break;
+        }
     }
 }

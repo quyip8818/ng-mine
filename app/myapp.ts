@@ -24,13 +24,14 @@
 
 import {Component} from 'angular2/core';
 import {ConfigComponent} from './config_component/config.component';
-import {MineComponent} from './mine_component/mine.component';
+import {MineComponent} from './mine_component/mine.entry';
+import {Service} from './service/Service';
 
 @Component({
     selector: 'myapp',
     templateUrl: 'app/myapp.html',
     directives: [ConfigComponent, MineComponent],
-    providers: []
+    providers: [Service]
 })
 export class MyApp {
     constructor() {}
