@@ -1,0 +1,23 @@
+<div id="new" *ngIf="type === 'new'">
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="height">Height</label>
+            <input id="height" class="form-control" min="5" max="50" required type="number" [(ngModel)]="config.height"/>
+        </div>
+
+        <div class="form-group">
+            <label for="width">Width</label>
+            <input id="width" class="form-control" min="5"  max="50" required type="number" [(ngModel)]="config.width"/>
+        </div>
+
+        <div class="form-group">
+            <label for="num_mines">Number of mines</label>
+            <input id="num_mines" class="form-control" min="1"  max="{{config.height * config.width /2}}"
+                   required type="number" [(ngModel)]="config.num_mines"/>
+        </div>
+        <div>{{diagnostic}}</div>
+
+        <button type="submit" class="btn btn-default">Start</button>
+        <button type="button" class="btn btn-default" (click)="reset()">Reset</button>
+    </form>
+</div>
