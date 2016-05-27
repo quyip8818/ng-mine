@@ -28,36 +28,12 @@ import {NgForm} from 'angular2/common';
 import {DefaultValue} from '../default_value';
 
 @Component({
-    selector: 'config-component',
-    templateUrl: 'app/config_component/config.component.html',
+    selector: 'mine-component',
+    templateUrl: 'app/mine_component/mine.component.html',
     directives: [],
     providers: []
 })
-export class ConfigComponent {
-
-    STATUS = {
-        NEW: 0,
-        SETTLED: 1
-    };
-
-    config = DefaultValue.getDefaultConfig();
-    status = this.STATUS.NEW;
-
+export class MineComponent {
     constructor() {
     }
-
-    onSubmit() {
-        this.status = this.STATUS.SETTLED;
-    }
-
-    reset() {
-        this.config = DefaultValue.resetDefaultConfig(this.config);
-        this.status = this.STATUS.NEW;
-    }
-
-    reconfig() {
-        this.status = this.STATUS.NEW;
-    }
-
-    get diagnostic() { return JSON.stringify(this.config); }
 }
