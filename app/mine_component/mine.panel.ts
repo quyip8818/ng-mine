@@ -73,8 +73,31 @@ export class MinePanel implements OnInit, OnDestroy {
         for (var i : number = 0; i < this.config.height; i++) {
             this.cells[i] = [];
             for (var j : number = 0; j < this.config.width; j++) {
-                this.cells[i][j] = new Cell(i * this.config.height + j);
+                this.cells[i][j] = new Cell(i, j);
             }
+        }
+        
+        for (var i : number = 0; i < this.config.num_mines;) {
+            if (this.putMine()) {
+                i++;
+            }
+        }
+    }
+    
+    putMine(): boolean {
+        var row = Math.floor(Math.random() * this.config.height);
+        var column = Math.floor(Math.random() * this.config.width);
+        if (!this.cells[row][column].hasMine) {
+            this.cells[row][column].hasMine = true;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    cellClick(row: number, column: number): void {
+        if (this.cells[row][column].hasMine) {
+            console.log("Death");
         }
     }
 

@@ -3,7 +3,7 @@
         <tbody>
             <tr *ngFor="let row of cells">
                 <td *ngFor="let cell of row">
-                    {{cell.id}}
+                    <button type="button" class="btn btn-default" (click)="cellClick(cell.row, cell.column)"> </button>
                 </td>
             </tr>
         </tbody>
