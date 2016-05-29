@@ -70,9 +70,9 @@ export class MinePanel implements OnInit, OnDestroy {
 
     initCells() : void {
         this.cells = [];
-        for (var i : number = 0; i < this.config.height; i++) {
+        for (var i = 0; i < this.config.height; i++) {
             this.cells[i] = [];
-            for (var j : number = 0; j < this.config.width; j++) {
+            for (var j = 0; j < this.config.width; j++) {
                 this.cells[i][j] = new Cell(i, j);
             }
         }
@@ -80,6 +80,17 @@ export class MinePanel implements OnInit, OnDestroy {
         for (var i : number = 0; i < this.config.num_mines;) {
             if (this.putMine()) {
                 i++;
+            }
+        }
+
+        for (var i = 0; i < this.config.height; i++) {
+            for (var j = 0; j < this.config.width; j++) {
+                var rowstart = Math.max(0, i - 1);
+                var rowend = Math.min(this.config.height - 1, i + 1);
+                var columnstart = Math.max(0, j - 1);
+                var columnend = Math.min(this.config.width -1, j + 1);
+                this.cells[i][j].num_mines =
+                    this.countMine(rowstart, rowend, columnstart, columnend);
             }
         }
     }
@@ -95,16 +106,30 @@ export class MinePanel implements OnInit, OnDestroy {
         }
     }
 
+    countMine(rowstart: number, rowend: number, columnstart: number, columnend: number): number {
+        var count = 0;
+        for (var i = rowstart; i <= rowend; i++) {
+            for (var j = columnstart; j <= columnend; j++) {
+                if (this.cells[i][j].hasMine) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
     cellClick(row: number, column: number): void {
         if (this.cells[row][column].hasMine) {
-            console.log("Death");
+            this.cells[row][column].text = "D";
+        } else if (this.cells[row][column].num_mines > 0) {
+            this.cells[row][column].text = "" + this.cells[row][column].num_mines;
         } else {
-
+            this.expandMap(row, column);
         }
         this.cells[row][column].disabled = true;
     }
 
-    expandMap() {
+    expandMap(row: number, column: number) {
         
     }
 
