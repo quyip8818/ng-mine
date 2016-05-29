@@ -3,5 +3,7 @@
  */
 export class Cell {
     public hasMine: boolean = false;
+    public disabled: boolean = false;
+
     constructor(public row: number, public column: number){}
 }

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-import {Component, OnInit, OnDestroy} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {MinePanel} from "./mine.panel";
 
 @Component({

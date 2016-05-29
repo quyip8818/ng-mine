@@ -23,7 +23,6 @@
  */
 
 import {Component} from 'angular2/core';
-import {NgForm} from 'angular2/common';
 
 import {DefaultValue} from '../config/default_value';
 import {Service} from "../service/Service";

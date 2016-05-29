@@ -98,7 +98,14 @@ export class MinePanel implements OnInit, OnDestroy {
     cellClick(row: number, column: number): void {
         if (this.cells[row][column].hasMine) {
             console.log("Death");
+        } else {
+
         }
+        this.cells[row][column].disabled = true;
+    }
+
+    expandMap() {
+        
     }
 
     get diagnostic() { return JSON.stringify(this.cells); }
