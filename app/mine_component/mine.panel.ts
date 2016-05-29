@@ -23,14 +23,43 @@
  */
 
 import {Component, OnInit, OnDestroy} from 'angular2/core';
-import {MinePanel} from "./mine.panel";
+
+import {DefaultValue} from '../config/default_value';
+import {Service} from "../service/Service";
+import {Events} from "../config/events";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
-    selector: 'mine-component',
-    templateUrl: 'app/mine_component/mine.entry.html',
-    directives: [MinePanel],
+    selector: 'mine-panel',
+    templateUrl: 'app/mine_component/mine.panel.html',
+    directives: [],
     providers: []
 })
-export class MineComponent {
-    constructor() {}
+export class MinePanel implements OnInit, OnDestroy {
+
+    config = DefaultValue.getDefaultConfig();
+    serviceSubscription: Subscription;
+
+    constructor(private service: Service) {}
+
+    ngOnInit():void {
+        this.serviceSubscription = this.service.coreService.subscribe(
+          data => {
+              this.processData(data);
+          });
+    }
+
+    ngOnDestroy():void {
+        this.serviceSubscription.unsubscribe();
+    }
+
+    processData(data: {method: string, body: any}) {
+        switch (data.method) {
+            case Events.INIT_MINE:
+                this.config = data.body;
+                break;
+        }
+    }
+
+    get diagnostic() { return JSON.stringify(this.config); }
 }
