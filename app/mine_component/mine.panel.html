@@ -1,4 +1,11 @@
 <div>
-    My Panel
-    <div>{{diagnostic}}</div>
+    <table>
+        <tbody>
+            <tr *ngFor="let row of cells">
+                <td *ngFor="let cell of row">
+                    {{cell.id}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

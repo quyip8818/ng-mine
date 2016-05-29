@@ -28,6 +28,7 @@ import {DefaultValue} from '../config/default_value';
 import {Service} from "../service/Service";
 import {Events} from "../config/events";
 import {Subscription} from "rxjs/Subscription";
+import {Cell} from "./cell";
 
 @Component({
     selector: 'mine-panel',
@@ -37,10 +38,15 @@ import {Subscription} from "rxjs/Subscription";
 })
 export class MinePanel implements OnInit, OnDestroy {
 
-    config = DefaultValue.getDefaultConfig();
-    serviceSubscription: Subscription;
+    private config;
+    cells : Cell[][];
 
-    constructor(private service: Service) {}
+    private serviceSubscription: Subscription;
+
+    constructor(private service: Service) {
+        this.config = DefaultValue.getDefaultConfig();
+        this.initCells();
+    }
 
     ngOnInit():void {
         this.serviceSubscription = this.service.coreService.subscribe(
@@ -57,9 +63,20 @@ export class MinePanel implements OnInit, OnDestroy {
         switch (data.method) {
             case Events.INIT_MINE:
                 this.config = data.body;
+                this.initCells();
                 break;
         }
     }
 
-    get diagnostic() { return JSON.stringify(this.config); }
+    initCells() : void {
+        this.cells = [];
+        for (var i : number = 0; i < this.config.height; i++) {
+            this.cells[i] = [];
+            for (var j : number = 0; j < this.config.width; j++) {
+                this.cells[i][j] = new Cell(i * this.config.height + j);
+            }
+        }
+    }
+
+    get diagnostic() { return JSON.stringify(this.cells); }
 }
