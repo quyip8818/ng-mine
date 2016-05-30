@@ -85,16 +85,11 @@ export class MinePanel implements OnInit, OnDestroy {
 
         for (var i = 0; i < this.config.height; i++) {
             for (var j = 0; j < this.config.width; j++) {
-                var rowstart = Math.max(0, i - 1);
-                var rowend = Math.min(this.config.height - 1, i + 1);
-                var columnstart = Math.max(0, j - 1);
-                var columnend = Math.min(this.config.width -1, j + 1);
-                this.cells[i][j].num_mines =
-                    this.countMine(rowstart, rowend, columnstart, columnend);
+                this.cells[i][j].num_mines = this.countMine(i, j);
             }
         }
     }
-    
+
     putMine(): boolean {
         var row = Math.floor(Math.random() * this.config.height);
         var column = Math.floor(Math.random() * this.config.width);
@@ -106,10 +101,20 @@ export class MinePanel implements OnInit, OnDestroy {
         }
     }
 
-    countMine(rowstart: number, rowend: number, columnstart: number, columnend: number): number {
+    getNearestEdge(i: number, j: number) {
+        return {
+            rowstart: Math.max(0, i - 1),
+            rowend: Math.min(this.config.height - 1, i + 1),
+            columnstart: Math.max(0, j - 1),
+            columnend: Math.min(this.config.width - 1, j + 1)
+        };
+    }
+
+    countMine(i: number, j: number): number {
+        var edge = this.getNearestEdge(i, j);
         var count = 0;
-        for (var i = rowstart; i <= rowend; i++) {
-            for (var j = columnstart; j <= columnend; j++) {
+        for (var i = edge.rowstart; i <= edge.rowend; i++) {
+            for (var j = edge.columnstart; j <= edge.columnend; j++) {
                 if (this.cells[i][j].hasMine) {
                     count++;
                 }
@@ -118,20 +123,43 @@ export class MinePanel implements OnInit, OnDestroy {
         return count;
     }
 
+    expandMap(records: {row: number, column: number}[])
+            : {row: number, column: number}[] {
+        var results = [];
+        for (var r = 0; r < records.length; r++) {
+            var row = records[r].row;
+            var column = records[r].column;
+            var edge = this.getNearestEdge(row, column);
+            for (var i = edge.rowstart; i <= edge.rowend; i++) {
+                for (var j = edge.columnstart; j <= edge.columnend; j++) {
+                    if (this.cells[i][j].disabled) {
+                        continue;
+                    }
+                    if (this.cells[i][j].num_mines > 0) {
+                        this.cells[i][j].disabled = true;
+                        this.cells[i][j].text = "" + this.cells[i][j].num_mines;
+                    } else if (this.cells[i][j].num_mines == 0) {
+                        this.cells[i][j].disabled = true;
+                        results.push({row: i, column: j});
+                    }
+                }
+            }
+        }
+        return results;
+    }
+
     cellClick(row: number, column: number): void {
         if (this.cells[row][column].hasMine) {
             this.cells[row][column].text = "D";
         } else if (this.cells[row][column].num_mines > 0) {
             this.cells[row][column].text = "" + this.cells[row][column].num_mines;
         } else {
-            this.expandMap(row, column);
+            var records = [{row: row, column: column}];
+            while (records.length > 0) {
+                console.log(records);
+                records = this.expandMap(records);
+            }
         }
         this.cells[row][column].disabled = true;
     }
-
-    expandMap(row: number, column: number) {
-        
-    }
-
-    get diagnostic() { return JSON.stringify(this.cells); }
 }

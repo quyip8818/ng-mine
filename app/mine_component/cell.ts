@@ -8,4 +8,5 @@ export class Cell {
     public text: String;
 
     constructor(public row: number, public column: number){}
+    
 }
