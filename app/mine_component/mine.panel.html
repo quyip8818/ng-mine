@@ -7,7 +7,7 @@
                             class="btn btn-default mine-cell"
                             [class.disabled-cell]="cell.disabled"
                             [disabled]="cell.disabled"
-                            (click)="cellClick(cell.row, cell.column)">
+                            (click)="cellClick($event, cell.row, cell.column)">
                         {{cell.text}}
                     </button>
                 </td>

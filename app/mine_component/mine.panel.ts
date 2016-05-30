@@ -65,6 +65,9 @@ export class MinePanel implements OnInit, OnDestroy {
                 this.config = data.body;
                 this.initCells();
                 break;
+            case Events.RESTART:
+                this.initCells();
+                break;
         }
     }
 
@@ -148,7 +151,12 @@ export class MinePanel implements OnInit, OnDestroy {
         return results;
     }
 
-    cellClick(row: number, column: number): void {
+    cellClick(event: MouseEvent, row: number, column: number): void {
+        console.log(event.button);
+        this.checkMine(row, column);
+    }
+
+    checkMine(row: number, column: number): void {
         if (this.cells[row][column].hasMine) {
             this.cells[row][column].text = "D";
         } else if (this.cells[row][column].num_mines > 0) {
@@ -156,7 +164,6 @@ export class MinePanel implements OnInit, OnDestroy {
         } else {
             var records = [{row: row, column: column}];
             while (records.length > 0) {
-                console.log(records);
                 records = this.expandMap(records);
             }
         }

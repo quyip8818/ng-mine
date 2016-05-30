@@ -60,5 +60,9 @@ export class ConfigComponent {
         this.status = this.STATUS.NEW;
     }
 
+    restart() {
+        this.service.publish(Events.RESTART, {});
+    }
+
     get diagnostic() { return JSON.stringify(this.config); }
 }
