@@ -152,11 +152,22 @@ export class MinePanel implements OnInit, OnDestroy {
     }
 
     cellClick(event: MouseEvent, row: number, column: number): void {
-        console.log(event.button);
-        this.checkMine(row, column);
+        console.log(event.ctrlKey);
+        if (event.ctrlKey) {
+            this.markMine(row, column);
+        } else {
+            this.checkMine(row, column);
+        }
+    }
+
+    markMine(row: number, column: number): void {
+        this.cells[row][column].marked = !this.cells[row][column].marked;
     }
 
     checkMine(row: number, column: number): void {
+        if (this.cells[row][column].marked) {
+            return;
+        }
         if (this.cells[row][column].hasMine) {
             this.cells[row][column].text = "D";
         } else if (this.cells[row][column].num_mines > 0) {
