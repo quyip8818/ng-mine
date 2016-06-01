@@ -56,12 +56,17 @@ export class ConfigComponent {
         this.status = this.STATUS.NEW;
     }
 
-    reconfig() {
-        this.status = this.STATUS.NEW;
+    finished() {
+        this.service.publish(Events.FINISHED, {});
     }
 
     restart() {
         this.service.publish(Events.RESTART, {});
+    }
+
+    reconfig() {
+        this.status = this.STATUS.NEW;
+        this.service.publish(Events.RECONFIG, {});
     }
 
     get diagnostic() { return JSON.stringify(this.config); }

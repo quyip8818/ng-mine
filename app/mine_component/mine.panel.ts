@@ -45,7 +45,7 @@ export class MinePanel implements OnInit, OnDestroy {
 
     constructor(private service: Service) {
         this.config = DefaultValue.getDefaultConfig();
-        this.initCells();
+        this.initCells(true);
     }
 
     ngOnInit():void {
@@ -63,20 +63,24 @@ export class MinePanel implements OnInit, OnDestroy {
         switch (data.method) {
             case Events.INIT_MINE:
                 this.config = data.body;
-                this.initCells();
+                this.initCells(false);
                 break;
             case Events.RESTART:
-                this.initCells();
+                this.initCells(false);
+                break;
+            case Events.RECONFIG:
+                this.initCells(true);
                 break;
         }
     }
 
-    initCells() : void {
+    initCells(disabled: boolean) : void {
         this.cells = [];
         for (var i = 0; i < this.config.height; i++) {
             this.cells[i] = [];
             for (var j = 0; j < this.config.width; j++) {
                 this.cells[i][j] = new Cell(i, j);
+                this.cells[i][j].disabled = disabled;
             }
         }
         
@@ -152,7 +156,6 @@ export class MinePanel implements OnInit, OnDestroy {
     }
 
     cellClick(event: MouseEvent, row: number, column: number): void {
-        console.log(event.ctrlKey);
         if (event.ctrlKey) {
             this.markMine(row, column);
         } else {
@@ -179,5 +182,16 @@ export class MinePanel implements OnInit, OnDestroy {
             }
         }
         this.cells[row][column].disabled = true;
+    }
+
+    finished(): boolean {
+        for (var i = 0; i < this.config.height; i++) {
+            for (var j = 0; j < this.config.width; j++) {
+                if (this.cells[i][j].marked != this.cells[i][j].hasMine) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

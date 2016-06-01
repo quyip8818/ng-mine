@@ -5,4 +5,6 @@
 export class Events {
     static INIT_MINE = "init_mine";
     static RESTART = "restart";
+    static RECONFIG = "reconfig";
+    static FINISHED = "finished";
 }

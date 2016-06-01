@@ -22,8 +22,11 @@
  * SOFTWARE.
  */
 
-import {Component} from 'angular2/core';
+import {Component, OnInit, OnDestroy, ViewChild} from 'angular2/core';
 import {MinePanel} from "./mine.panel";
+import {Subscription} from "rxjs/Rx";
+import {Service} from "../service/Service";
+import {Events} from "../config/events";
 
 @Component({
     selector: 'mine-component',
@@ -31,6 +34,37 @@ import {MinePanel} from "./mine.panel";
     directives: [MinePanel],
     providers: []
 })
-export class MineComponent {
-    constructor() {}
+export class MineComponent implements OnInit, OnDestroy {
+    winLine = "";
+    private serviceSubscription: Subscription;
+
+    @ViewChild(MinePanel)
+    private minePanel;
+
+    constructor(private service: Service) {}
+
+    ngOnInit():void {
+        this.serviceSubscription = this.service.coreService.subscribe(
+            data => {
+                this.processData(data);
+            });
+    }
+
+    ngOnDestroy():void {
+        this.serviceSubscription.unsubscribe();
+    }
+
+    processData(data: {method: string, body: any}) {
+        switch (data.method) {
+            case Events.INIT_MINE:
+            case Events.RESTART:
+            case Events.RECONFIG:
+                this.winLine = "";
+                break;
+            case Events.FINISHED:
+                console.log(this.minePanel.finished());
+                this.winLine = this.minePanel.finished() ? "Congruation! You win" : "Sorry you lost";
+                break;
+        }
+    }
 }
