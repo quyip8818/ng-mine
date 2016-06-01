@@ -27,6 +27,7 @@ import {Component, OnInit, OnDestroy} from 'angular2/core';
 import {DefaultValue} from '../config/default_value';
 import {Service} from "../service/Service";
 import {Events} from "../config/events";
+import {COMMON_STRING} from "../config/common_string";
 import {Subscription} from "rxjs/Subscription";
 import {Cell} from "./cell";
 
@@ -42,7 +43,7 @@ export class MinePanel implements OnInit, OnDestroy {
     cells : Cell[][];
     winLine = "";
     num_mine_left;
-    start = false;
+    finished = false;
     private serviceSubscription: Subscription;
 
     constructor(private service: Service) {
@@ -74,16 +75,16 @@ export class MinePanel implements OnInit, OnDestroy {
                 this.initCells(true);
                 break;
             case Events.FINISHED:
-                console.log(this.finished());
-                this.winLine = this.finished() ? "Congruation! You win" : "Sorry you lost";
+                console.log(this.checkFinished());
+                this.winLine = this.checkFinished() ? COMMON_STRING.WIN : COMMON_STRING.LOST;
                 break;
         }
     }
 
     initCells(disabled: boolean) : void {
         this.winLine = "";
+        this.finished = false;
         this.num_mine_left = this.config.num_mines;
-        console.log(this.num_mine_left);
         this.cells = [];
         for (var i = 0; i < this.config.height; i++) {
             this.cells[i] = [];
@@ -188,6 +189,8 @@ export class MinePanel implements OnInit, OnDestroy {
             return;
         }
         if (this.cells[row][column].hasMine) {
+            this.finished = true;
+            this.winLine = COMMON_STRING.LOST;
             this.cells[row][column].text = "D";
         } else if (this.cells[row][column].num_mines > 0) {
             this.cells[row][column].text = "" + this.cells[row][column].num_mines;
@@ -200,7 +203,8 @@ export class MinePanel implements OnInit, OnDestroy {
         this.cells[row][column].disabled = true;
     }
 
-    finished(): boolean {
+    checkFinished(): boolean {
+        this.finished = true;
         for (var i = 0; i < this.config.height; i++) {
             for (var j = 0; j < this.config.width; j++) {
                 if (this.cells[i][j].marked != this.cells[i][j].hasMine) {

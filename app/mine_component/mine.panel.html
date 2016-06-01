@@ -10,7 +10,7 @@
                             class="btn btn-default mine-cell"
                             [class.disabled-cell]="cell.disabled"
                             [class.marked-cell]="cell.marked"
-                            [disabled]="cell.disabled"
+                            [disabled]="cell.disabled || finished"
                             (click)="cellClick($event, cell.row, cell.column)">
                         {{cell.text}}
                         <img *ngIf="cell.marked" class="img-responsive" src="image/flag.png">
