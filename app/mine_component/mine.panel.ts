@@ -191,7 +191,7 @@ export class MinePanel implements OnInit, OnDestroy {
         if (this.cells[row][column].hasMine) {
             this.finished = true;
             this.winLine = COMMON_STRING.LOST;
-            this.cells[row][column].text = "D";
+            this.cells[row][column].bombed = true;
         } else if (this.cells[row][column].num_mines > 0) {
             this.cells[row][column].text = "" + this.cells[row][column].num_mines;
         } else {

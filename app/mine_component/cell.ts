@@ -5,6 +5,7 @@ export class Cell {
     public hasMine: boolean = false;
     public disabled: boolean = false;
     public marked: boolean = false;
+    public bombed: boolean = false;
     public num_mines: number;
     public text: String;
 
