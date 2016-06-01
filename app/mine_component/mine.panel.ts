@@ -40,7 +40,9 @@ export class MinePanel implements OnInit, OnDestroy {
 
     private config;
     cells : Cell[][];
-
+    winLine = "";
+    num_mine_left;
+    start = false;
     private serviceSubscription: Subscription;
 
     constructor(private service: Service) {
@@ -71,10 +73,17 @@ export class MinePanel implements OnInit, OnDestroy {
             case Events.RECONFIG:
                 this.initCells(true);
                 break;
+            case Events.FINISHED:
+                console.log(this.finished());
+                this.winLine = this.finished() ? "Congruation! You win" : "Sorry you lost";
+                break;
         }
     }
 
     initCells(disabled: boolean) : void {
+        this.winLine = "";
+        this.num_mine_left = this.config.num_mines;
+        console.log(this.num_mine_left);
         this.cells = [];
         for (var i = 0; i < this.config.height; i++) {
             this.cells[i] = [];
@@ -164,7 +173,14 @@ export class MinePanel implements OnInit, OnDestroy {
     }
 
     markMine(row: number, column: number): void {
-        this.cells[row][column].marked = !this.cells[row][column].marked;
+        if (this.cells[row][column].marked) {
+            this.num_mine_left++;
+            this.cells[row][column].marked = false;
+        } else {
+            this.num_mine_left--;
+            this.cells[row][column].marked = true;
+        }
+        console.log(this.num_mine_left);
     }
 
     checkMine(row: number, column: number): void {

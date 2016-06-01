@@ -1,4 +1,7 @@
 <div>
+    <div>Press "Ctrl" + mouse click to mark the mine</div>
+    <div *ngIf="winLine.length > 0" class="warning">{{winLine}}</div>
+    <div *ngIf="winLine.length == 0" > {{num_mine_left}} mines left</div>
     <table>
         <tbody>
             <tr *ngFor="let row of cells">
