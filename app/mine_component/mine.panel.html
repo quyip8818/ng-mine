@@ -13,6 +13,7 @@
                             [disabled]="cell.disabled"
                             (click)="cellClick($event, cell.row, cell.column)">
                         {{cell.text}}
+                        <img *ngIf="cell.marked" class="img-responsive" src="image/flag.png">
                     </button>
                 </td>
             </tr>
@@ -23,6 +24,7 @@
     .mine-cell {
         height: 30px;
         width: 30px;
+        padding: 0px;
     }
     .disabled-cell {
         background-color: gray;
