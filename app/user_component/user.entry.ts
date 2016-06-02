@@ -31,5 +31,9 @@ import {RemoteService} from "../service/remote_service";
     providers: []
 })
 export class UserComponent {
-    constructor(private remoteService: RemoteService) {}
+    value: String = ""
+
+    constructor(private remoteService: RemoteService) {
+        remoteService.get(1).subscribe(data => this.value = JSON.stringify(data.json()));
+    }
 }

@@ -3,12 +3,13 @@
  */
 
 import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 
 @Injectable()
 export class RemoteService {
-    constructor() {}
+    constructor(private _http: Http) {}
 
     get(id: number) {
-        //return this._http.get('http://jsonplaceholder.typicode.com/posts/' + id);
+        return this._http.get('http://jsonplaceholder.typicode.com/posts/' + id);
     }
 }

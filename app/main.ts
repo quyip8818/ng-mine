@@ -27,4 +27,4 @@ import {HTTP_PROVIDERS} from '@angular/http';
 
 import {MyApp} from './myapp';
 
-bootstrap(MyApp);
+bootstrap(MyApp, [HTTP_PROVIDERS]);
