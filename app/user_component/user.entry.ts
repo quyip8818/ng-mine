@@ -23,7 +23,7 @@
  */
 
 import {Component} from 'angular2/core';
-import {RemoteService} from "../service/remoteService";
+import {RemoteService} from "../service/remote_service";
 @Component({
     selector: 'user-component',
     templateUrl: 'app/user_component/user.entry.html',
