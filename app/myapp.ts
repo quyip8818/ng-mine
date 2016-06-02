@@ -25,13 +25,15 @@
 import {Component} from 'angular2/core';
 import {ConfigComponent} from './config_component/config.component';
 import {MineComponent} from './mine_component/mine.entry';
-import {Service} from './service/Service';
+import {UserComponent} from "./user_component/user.entry";
+import {LocalService} from './service/local_service';
+import {RemoteService} from "./service/remote_service";
 
 @Component({
     selector: 'myapp',
     templateUrl: 'app/myapp.html',
-    directives: [ConfigComponent, MineComponent],
-    providers: [Service]
+    directives: [ConfigComponent, MineComponent, UserComponent],
+    providers: [LocalService, RemoteService]
 })
 export class MyApp {
     constructor() {}

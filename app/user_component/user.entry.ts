@@ -23,51 +23,13 @@
  */
 
 import {Component} from 'angular2/core';
-
-import {DefaultValue} from '../config/default_value';
-import {LocalService} from "../service/local_service";
-import {Events} from "../config/events";
-
+import {RemoteService} from "../service/remoteService";
 @Component({
-    selector: 'config-component',
-    templateUrl: 'app/config_component/config.component.html',
+    selector: 'user-component',
+    templateUrl: 'app/user_component/user.entry.html',
     directives: [],
     providers: []
 })
-export class ConfigComponent {
-
-    STATUS = {
-        NEW: 0,
-        SETTLED: 1
-    };
-
-    config = DefaultValue.getDefaultConfig();
-    status = this.STATUS.NEW;
-
-    constructor(private localService: LocalService) {}
-
-    onSubmit() {
-        this.status = this.STATUS.SETTLED;
-        this.localService.publish(Events.INIT_MINE, this.config);
-    }
-
-    reset() {
-        this.config = DefaultValue.resetDefaultConfig(this.config);
-        this.status = this.STATUS.NEW;
-    }
-
-    finished() {
-        this.localService.publish(Events.FINISHED, {});
-    }
-
-    restart() {
-        this.localService.publish(Events.RESTART, {});
-    }
-
-    reconfig() {
-        this.status = this.STATUS.NEW;
-        this.localService.publish(Events.RECONFIG, {});
-    }
-
-    get diagnostic() { return JSON.stringify(this.config); }
+export class UserComponent {
+    constructor(private remoteService: RemoteService) {}
 }

@@ -11,7 +11,7 @@
                             [class.disabled-cell]="cell.disabled"
                             [disabled]="cell.disabled || finished"
                             (click)="cellClick($event, cell.row, cell.column)">
-                        {{cell.text}}
+                        <div *ngIf="!cell.marked && !cell.bombed" >{{cell.text}}</div>
                         <img *ngIf="cell.marked" class="img-responsive" src="image/flag.png">
                         <img *ngIf="cell.bombed" class="img-responsive" src="image/bomb.png">
                     </button>

@@ -25,7 +25,7 @@
 import {Component, OnInit, OnDestroy} from 'angular2/core';
 
 import {DefaultValue} from '../config/default_value';
-import {Service} from "../service/Service";
+import {LocalService} from "../service/local_service";
 import {Events} from "../config/events";
 import {COMMON_STRING} from "../config/common_string";
 import {Subscription} from "rxjs/Subscription";
@@ -46,13 +46,13 @@ export class MinePanel implements OnInit, OnDestroy {
     finished = false;
     private serviceSubscription: Subscription;
 
-    constructor(private service: Service) {
+    constructor(private localService: LocalService) {
         this.config = DefaultValue.getDefaultConfig();
         this.initCells(true);
     }
 
     ngOnInit():void {
-        this.serviceSubscription = this.service.coreService.subscribe(
+        this.serviceSubscription = this.localService.coreService.subscribe(
           data => {
               this.processData(data);
           });
