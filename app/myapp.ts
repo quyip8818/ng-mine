@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {ConfigComponent} from './config_component/config.component';
 import {MineComponent} from './mine_component/mine.entry';
 import {UserComponent} from "./user_component/user.entry";

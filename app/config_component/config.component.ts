@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 
 import {DefaultValue} from '../config/default_value';
 import {LocalService} from "../service/local_service";

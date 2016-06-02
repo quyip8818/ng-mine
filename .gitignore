@@ -1,6 +1,6 @@
 typings/
 node_modules/
-*.js
+app/*.js
 *.js.map
 .idea/
 npm-debug.*

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {MinePanel} from "./mine.panel";
 @Component({
     selector: 'mine-component',

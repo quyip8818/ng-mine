@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {RemoteService} from "../service/remote_service";
 @Component({
     selector: 'user-component',
