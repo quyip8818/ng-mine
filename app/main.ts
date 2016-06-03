@@ -24,7 +24,11 @@
 
 import {bootstrap}    from '@angular/platform-browser-dynamic';
 import {HTTP_PROVIDERS} from '@angular/http';
+import {ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import {Title} from '@angular/platform-browser';
 
 import {MyApp} from './myapp';
 
-bootstrap(MyApp, [HTTP_PROVIDERS]);
+//import { enableProdMode } from '@angular/core';
+
+bootstrap(MyApp, [Title, ROUTER_PROVIDERS, HTTP_PROVIDERS]);

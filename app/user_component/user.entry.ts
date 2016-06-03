@@ -34,6 +34,6 @@ export class UserComponent {
     value: String = ""
 
     constructor(private remoteService: RemoteService) {
-        remoteService.get(1).subscribe(data => this.value = JSON.stringify(data.json()));
+        remoteService.get(1).subscribe(data => this.value = JSON.stringify(data));
     }
 }
