@@ -1,5 +1,5 @@
 {
-  "name": "ng-go",
+  "name": "ng-mine",
   "version": "1.0.0",
   "scripts": {
     "start": "concurrently \"npm run tsc:w\" \"npm run lite\" ",
@@ -11,6 +11,7 @@
   },
   "license": "ISC",
   "dependencies": {
+    "typings": "^1.0.4",
     "@angular/common":  "2.0.0-rc.1",
     "@angular/compiler":  "2.0.0-rc.1",
     "@angular/core":  "2.0.0-rc.1",
