@@ -10,8 +10,11 @@ RUN cd $(npm root -g)/npm && \
     sed -i -e s/graceful-fs/fs-extra/ -e s/fs\.rename/fs\.move/ ./lib/utils/rename.js
 
 RUN cd /code && \
-    npm install -g concurrently lite-server typescript typings && \
-    npm install && \
+    npm install -g concurrently lite-server typescript typings
+
+RUN npm install && \
+    typings install && \
+    npm run tsc && \
     apt-get clean
 EXPOSE 8080
 CMD npm start
