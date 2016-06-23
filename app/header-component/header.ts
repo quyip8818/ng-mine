@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * Copyright (c) 2016 Yongsheng Li
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -23,19 +23,12 @@
  */
 
 import {Component} from '@angular/core';
-import {ConfigComponent} from './config_component/config.component';
-import {MineComponent} from './mine_component/mine.entry';
-import {UserComponent} from "./user_component/user.entry";
-import {LocalService} from './service/local_service';
-import {RemoteService} from "./service/remote_service";
-import {HeaderComponent} from "./header-component/header";
-
 @Component({
-    selector: 'myapp',
-    templateUrl: 'app/myapp.html',
-    directives: [ConfigComponent, MineComponent, UserComponent, HeaderComponent],
-    providers: [LocalService, RemoteService]
+    selector: 'header-component',
+    templateUrl: 'app/header_component/header.html',
+    directives: [],
+    providers: []
 })
-export class MyApp {
+export class HeaderComponent {
     constructor() {}
 }

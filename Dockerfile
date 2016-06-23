@@ -1,4 +1,6 @@
 FROM node
+EXPOSE 80
+
 ADD . /code
 WORKDIR /code
 RUN apt-get -yq update && \
@@ -7,5 +9,5 @@ RUN apt-get -yq update && \
 
 RUN npm install -g concurrently lite-server typescript typings
 
-EXPOSE 8080
-ENTRYPOINT npm install && npm start
+RUN npm install
+ENTRYPOINT npm start
