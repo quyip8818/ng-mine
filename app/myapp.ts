@@ -28,7 +28,7 @@ import {MineComponent} from './mine_component/mine.entry';
 import {UserComponent} from "./user_component/user.entry";
 import {LocalService} from './service/local_service';
 import {RemoteService} from "./service/remote_service";
-import {HeaderComponent} from "./header-component/header";
+import {HeaderComponent} from "./header_component/header";
 
 @Component({
     selector: 'myapp',

@@ -25,7 +25,7 @@
 import {Component} from '@angular/core';
 @Component({
     selector: 'header-component',
-    templateUrl: 'app/header_component/header.html',
+    templateUrl: '/app/header_component/header.html',
     directives: [],
     providers: []
 })
